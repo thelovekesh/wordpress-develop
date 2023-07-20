@@ -70,6 +70,9 @@ jobs:
           node-version-file: '.nvmrc'
           cache: npm
 
+      - name: Test if CI env var is set
+        run: echo "CI is $CI"
+
       - name: Log debug information
         run: |
           npm --version
@@ -79,6 +82,13 @@ jobs:
 
       - name: Install npm Dependencies
         run: npm ci
+        env:
+          CI: true
+
+      - name: Test if CI env var is set
+        run: |
+          echo "CI is $CI"
+          exit 1
 
       - name: Run QUnit tests
         run: npm run grunt qunit:compiled
